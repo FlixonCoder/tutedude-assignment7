@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Auto-submit filter when selection changes (optional convenience)
   const filterSelect = document.getElementById('filter');
   if (filterSelect && filterSelect.form) {
     filterSelect.addEventListener('change', () => filterSelect.form.submit());

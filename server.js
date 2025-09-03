@@ -8,7 +8,6 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 
-// Tiny method override (no dependency)
 app.use((req, res, next) => {
   const override = (req.query._method || (req.body && req.body._method) || '').toUpperCase();
   if (override === 'PUT' || override === 'DELETE' || override === 'PATCH') {
@@ -19,10 +18,8 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-// In-memory "DB"
-let items = []; // each item: { text: 'task', priority: 'low' | 'medium' | 'high' }
+let items = [];
 
-// Home + filter (GET /?filter=high|medium|low|all)
 app.get('/', (req, res) => {
   const filter = (req.query.filter || 'all').toLowerCase();
   let todos = items.map((todo, i) => ({ ...todo, i })); // keep original index for edit/delete
@@ -32,7 +29,6 @@ app.get('/', (req, res) => {
   res.render('list', { todos, filter });
 });
 
-// Create (POST /todos)
 app.post('/todos', (req, res) => {
   const text = (req.body.text || '').trim();
   const rawPriority = (req.body.priority || 'medium').toLowerCase();
@@ -42,7 +38,6 @@ app.post('/todos', (req, res) => {
   res.redirect('/');
 });
 
-// Update (PUT /todos/:index)
 app.put('/todos/:index', (req, res) => {
   const i = parseInt(req.params.index, 10);
   const updatedText = (req.body.updatedTask || '').trim();
@@ -52,7 +47,6 @@ app.put('/todos/:index', (req, res) => {
   res.redirect('/');
 });
 
-// Delete (DELETE /todos/:index)
 app.delete('/todos/:index', (req, res) => {
   const i = parseInt(req.params.index, 10);
   if (!Number.isNaN(i) && items[i]) items.splice(i, 1);

@@ -6,74 +6,74 @@
   <title>To-do List</title>
   <link rel="stylesheet" href="/css/style.css" />
 </head>
-<body>
-  <!-- Header -->
-  <header>
-    <h2 class="header-title">MyTodo App</h2>
-  </header>
+  <body>
+    <!-- Header -->
+    <header>
+      <h2 class="header-title">MyTodo App</h2>
+    </header>
 
-  <!-- Main Content -->
-  <main class="container">
-    <h1>Todo List</h1>
+    <!-- Main Content -->
+    <main class="container">
+      <h1>Todo List</h1>
 
-    <!-- Filter (GET) -->
-    <form class="filters" method="GET" action="/">
-      <label for="filter">Priority:</label>
-      <select name="filter" id="filter">
-        <option value="all"   <%= filter === 'all' ? 'selected' : '' %>>All</option>
-        <option value="high"  <%= filter === 'high' ? 'selected' : '' %>>High</option>
-        <option value="medium"<%= filter === 'medium' ? 'selected' : '' %>>Medium</option>
-        <option value="low"   <%= filter === 'low' ? 'selected' : '' %>>Low</option>
-      </select>
-      <button type="submit" class="filter-btn">Filter</button>
-    </form>
+      <!-- Filte -->
+      <form class="filters" method="GET" action="/">
+        <label for="filter">Priority:</label>
+        <select name="filter" id="filter">
+          <option value="all"   <%= filter === 'all' ? 'selected' : '' %>>All</option>
+          <option value="high"  <%= filter === 'high' ? 'selected' : '' %>>High</option>
+          <option value="medium"<%= filter === 'medium' ? 'selected' : '' %>>Medium</option>
+          <option value="low"   <%= filter === 'low' ? 'selected' : '' %>>Low</option>
+        </select>
+        <button type="submit" class="filter-btn">Filter</button>
+      </form>
 
-    <!-- Tasks -->
-    <div class="tasks">
-      <% if (todos.length === 0) { %>
-        <p class="empty">No tasks found.</p>
-      <% } %>
+      <!-- Tasks -->
+      <div class="tasks">
+        <% if (todos.length === 0) { %>
+          <p class="empty">No tasks found.</p>
+        <% } %>
 
-      <% todos.forEach(function(todo){ %>
-        <div class="task">
-          <input type="checkbox" class="task-checkbox" />
-          <p class="task-text"><%= todo.text %></p>
-          <span class="badge <%= todo.priority %>"><%= todo.priority %></span>
+        <% todos.forEach(function(todo){ %>
+          <div class="task">
+            <input type="checkbox" class="task-checkbox" />
+            <p class="task-text"><%= todo.text %></p>
+            <span class="badge <%= todo.priority %>"><%= todo.priority %></span>
 
-          <!-- Edit form (PUT) -->
-          <form action="/todos/<%= todo.i %>?_method=PUT" method="POST" class="inline-form edit-form">
-            <input type="text" name="updatedTask" placeholder="Edit task" class="edit-input" />
-            <button type="submit" class="edit-submit">✔️</button>
-          </form>
+            <!-- Edit form -->
+            <form action="/todos/<%= todo.i %>?_method=PUT" method="POST" class="inline-form edit-form">
+              <input type="text" name="updatedTask" placeholder="Edit task" class="edit-input" />
+              <button type="submit" class="edit-submit">✔️</button>
+            </form>
 
-          <!-- Edit toggle button -->
-          <button type="button" class="edit-btn" onclick="toggleEdit(this)">✏️</button>
+            <!-- Edit toggle button -->
+            <button type="button" class="edit-btn" onclick="toggleEdit(this)">✏️</button>
 
-          <!-- Delete form (DELETE) -->
-          <form action="/todos/<%= todo.i %>?_method=DELETE" method="POST" class="inline-form">
-            <button type="submit" class="delete-btn">🗑️</button>
-          </form>
-        </div>
-      <% }) %>
-    </div>
+            <!-- Delete form -->
+            <form action="/todos/<%= todo.i %>?_method=DELETE" method="POST" class="inline-form">
+              <button type="submit" class="delete-btn">🗑️</button>
+            </form>
+          </div>
+        <% }) %>
+      </div>
 
-    <!-- Add Task (POST) -->
-    <form action="/todos" method="POST" class="add-task" id="addForm">
-      <input type="text" name="text" id="taskInput" placeholder="Enter the task" />
-      <select name="priority" class="select-priority">
-        <option value="low">Low</option>
-        <option value="medium" selected>Medium</option>
-        <option value="high">High</option>
-      </select>
-      <button type="submit">+</button>
-    </form>
-  </main>
+      <!-- Add Task -->
+      <form action="/todos" method="POST" class="add-task" id="addForm">
+        <input type="text" name="text" id="taskInput" placeholder="Enter the task" />
+        <select name="priority" class="select-priority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+        <button type="submit">+</button>
+      </form>
+    </main>
 
-  <!-- Footer -->
-  <footer>
-    <p>© <%= new Date().getFullYear() %> MyTodo | Built using Node.js & EJS</p>
-  </footer>
+    <!-- Footer -->
+    <footer>
+      <p>© <%= new Date().getFullYear() %> MyTodo | Built using Node.js & EJS</p>
+    </footer>
 
-  <script src="/js/script.js"></script>
-</body>
+    <script src="/js/script.js"></script>
+  </body>
 </html>
